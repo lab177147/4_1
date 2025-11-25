@@ -22,7 +22,26 @@ app.get("/math/circle/:r", (req, res) => {
 });
 
 //TODO2
+app.get("/math/rectangle/:width/:height", (req, res) => {
+  const a = Number(req.params.width);
+  const b = Number(req.params.height);
 
+  // check for required parameters
+  if (isNaN(a)) {
+    return res.status(400).send("Parameter 'a' must be a number");
+  }
+  if (isNaN(b)) {
+    return res.status(400).send("Parameter 'b' must be a number");
+  }
+  const area = a * b;
+  const circumference = 2 * a + 2 * b;
+
+  const result = {
+    area: area,
+    circumference: circumference,
+  };
+  res.type("text").send(result);
+});
 //TODO3
 
 const PORT = process.env.PORT || 5000;
