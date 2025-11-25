@@ -42,7 +42,24 @@ app.get("/math/rectangle/:width/:height", (req, res) => {
   };
   res.type("text").send(result);
 });
+
 //TODO3
+app.get("/math/power/:base/:exponent", (req, res) => {
+  const a = Number(req.params.base);
+  const b = Number(req.params.exponent);
+  const root = req.query.root === "true";
+
+  if (isNaN(a) || isNaN(b)) {
+    return res.status(400).json({ error: "Invalid input" });
+  }
+  const power = Math.pow(a, b);
+  const response = { power };
+  if (root) {
+    response.root = Math.sqrt(power);
+  }
+
+  res.json(response);
+});
 
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
